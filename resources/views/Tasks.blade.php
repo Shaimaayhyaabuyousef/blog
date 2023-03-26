@@ -9,14 +9,16 @@
     </head>
 <body>
     <h1> Tasks:</h1>
+    <form>
     <ul>
         @foreach ($tasks as $task )
-<h3>
+       <h3>
     <li>
-        <?php echo $task>
+      {{$task->name}}
     </li>
-</h3>
+        </h3>
         @endforeach
     </ul>
+    </form>
 </body>
 </html>
