@@ -9,7 +9,7 @@
             </div>
             <div class="panel-body">
 
-                <form action="{{ url('update/'.$tasks->id) }}" method="PUT" class="form-horizontal">
+                <form action="{{ url('update/'.$tasks->id) }}" method="POST" class="form-horizontal">
                     @csrf
                     @method('PUT')
 

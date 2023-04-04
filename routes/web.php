@@ -6,6 +6,7 @@ use Illuminate\Http\Client\Request;
 use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
 
 use App\Http\Controllers\TaskController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,13 @@ use App\Http\Controllers\TaskController;
 */
 
 Route::get('/', function () {
+
+    return view('layouts.Dashboard');
+});
+
+
+Route::get('index', function () {
+
     $tasks = DB::table('tasks')->get();
     return view('index',compact('tasks'));
 });
@@ -31,46 +39,15 @@ Route ::get('about',function(){
  } );
 
 //Route :: get ('/Tasks',[TaskController :: class , 'index']);
-
-Route :: post('delete/{id}',function($id)
-{
-    DB::table('tasks')->where ('id',$id )->delete();
-    return redirect()->back();
-
+Route::get ('index.html',function(){
+    return view('index');
 });
-
-Route :: post('insert',function( )
-{
-    DB::table('tasks')->insert([
-        'name' => $_REQUEST['name'],
-        'created_at' => now(),
-        'updated_at'=>now()
-    ]);
-    return redirect()->back();
-
-});
-Route :: post('edit/{id}',function ($id)
-    {
-        $tasks = DB::table('tasks')->where('id', '=', $id)->find($id);
-        return view('edit', compact('tasks'));
-    }
-);
-
-Route :: put( 'update/{id}',function ($id)
-    {
-
-        $data = array(
-            'name' =>  $_REQUEST['name']
-        );
-
-        DB::table('tasks')->where('id', $id)->update($data);
-
-    return redirect( )->with('info', 'update successfully!');
-});
-
-Route :: get ('front',function(){
-
-});
-
+Route::delete('delete/{id}',[TaskController::class, 'destroy'])->name('task.delete');
+Route::post('insert' ,[TaskController::class, 'store'])->name('task.insert');
+Route::post('edit/{id}',[TaskController::class, 'edit']);
 Route::put('update/{id}',[TaskController::class, 'update']);
+
+
+
+/*Route :: get ('front',function()*/
 

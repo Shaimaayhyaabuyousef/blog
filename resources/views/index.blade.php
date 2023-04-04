@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('layouts.Dashboard')
 @section('content')
 
     <div class="container">
@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     <!-- Display Validation Errors -->
                     <!-- New Task Form -->
-                    <form action="{{url ('insert')}}" method="POST" class="form-horizontal">
+                    <form action="{{route ('task.insert')}}" method="POST" class="form-horizontal">
                         @csrf
 
                         <!-- Task Name -->
@@ -62,8 +62,9 @@
 
                                     <!-- Task Delete Button -->
                                     <td>
-                                        <form action="{{url('delete/'.$task->id)}}" method="POST">
+                                        <form action="{{route('task.delete',$task->id)}}" method="POST">
                                             @csrf
+                                            @method('delete')
                                             <button type="submit" class="btn btn-danger">
                                                 <i class="fa fa-btn fa-trash"></i>Delete
                                             </button>
@@ -74,6 +75,7 @@
                                     <td>
                                         <form action="{{url('edit/'.$task->id)}}" method="POST">
                                             @csrf
+                                            @method('PUT')
                                             <button type="submit" class="btn btn-info">
                                                 <i class="fa fa-btn fa-info"></i>Edit
                                             </button>
@@ -91,3 +93,5 @@
     </div>
 
     @endsection
+
+
